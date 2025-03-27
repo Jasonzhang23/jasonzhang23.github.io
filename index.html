@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Parameters Display</title>
+    <title>URL 参数展示</title>
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -27,6 +27,16 @@
         .parameter-item {
             margin: 10px 0;
         }
+        .loading {
+            color: #666;
+            font-style: italic;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -38,11 +48,16 @@
     <h1>URL Parameters Display</h1>
     <div class="parameter-display">
         <div class="parameter-item">
-            <strong>Key1 (Name):</strong> <span id="key1Value">-</span>
+            <strong>Key1 (customerid):</strong> <span id="key1Value">-</span>
         </div>
         <div class="parameter-item">
-            <strong>Key2 (Email):</strong> <span id="key2Value">-</span>
+            <strong>Key2 (customeremail):</strong> <span id="key2Value">-</span>
         </div>
+    </div>
+    
+    <div class="status">
+        <p>状态：<span id="status" class="loading">正在加载参数和初始化标签...</span></p>
+        <p>注意：参数将被传递到 Impact 标签中</p>
     </div>
 </body>
 </html>
