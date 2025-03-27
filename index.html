@@ -1,52 +1,75 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>GTM参数测试页</title>
-    
-    <!-- Google Tag Manager 的 head 代码（替换成你的GTM ID） -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL 参数展示</title>
+    <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-NG6DB4XS');</script>
     <!-- End Google Tag Manager -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .parameter-display {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .parameter-item {
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
-    <!-- Google Tag Manager 的 body 代码（替换成你的GTM ID） -->
+    <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NG6DB4XS"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager -->
+    <!-- End Google Tag Manager (noscript) -->
 
-    <h1>用户信息展示页</h1>
-    <div id="display-area" style="padding: 20px; border: 1px solid #ccc; margin: 20px;">
-        <!-- 这里会动态显示参数 -->
+    <h1>URL 参数展示</h1>
+    <div class="parameter-display">
+        <div class="parameter-item">
+            <strong>Key1 (名称):</strong> <span id="key1Value">-</span>
+        </div>
+        <div class="parameter-item">
+            <strong>Key2 (邮箱):</strong> <span id="key2Value">-</span>
+        </div>
     </div>
 
-    <!-- 显示参数的脚本 -->
     <script>
-        // 等待页面完全加载（包括GTM初始化）
-        window.onload = function() {
-            // 获取显示区域
-            const display = document.getElementById('display-area');
-            
-            // 从 dataLayer 中提取参数
-            try {
-                // 重要：确认 dataLayer 存在且数据已推送
-                if(window.dataLayer && window.dataLayer.length > 0) {
-                    const data = window.dataLayer[0];
-                    display.innerHTML = `
-                        用户名：${data.key1 || '未提供'} <br>
-                        邮箱：${data.key2 || '未提供'}
-                    `;
-                } else {
-                    display.innerHTML = "错误：未检测到数据";
-                }
-            } catch (error) {
-                display.innerHTML = "数据解析失败，请检查控制台";
-                console.error("错误详情:", error);
-            }
+        // 从 URL 获取参数的函数
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
         }
+
+        // 获取并显示参数
+        window.onload = function() {
+            var key1 = getUrlParameter('key1');
+            var key2 = getUrlParameter('key2');
+            
+            document.getElementById('key1Value').textContent = key1 || '-';
+            document.getElementById('key2Value').textContent = key2 || '-';
+
+            // 将参数推送到 dataLayer
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'key1': key1,
+                'key2': key2,
+                'event': 'parameterLoaded'
+            });
+        };
     </script>
 </body>
 </html>
