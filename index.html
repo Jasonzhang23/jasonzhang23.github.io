@@ -1,18 +1,51 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NG6DB4XS');</script>
-  <!-- End Google Tag Manager -->
-  <title>显示 URL 参数值</title>
+    <meta charset="UTF-8">
+    <title>GTM参数测试页</title>
+    <!-- Google Tag Manager 的 head 代码（替换成你的GTM ID） -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NG6DB4XS');</script>
+    <!-- End Google Tag Manager -->
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NG6DB4XS"height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
-  <h1>提取的 URL 参数：</h1>
-  <p>Key1: <span id="key1-value"></span></p>
-  <p>Key2: <span id="key2-value"></span></p>
+    <!-- Google Tag Manager 的 body 代码（替换成你的GTM ID） -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NG6DB4XS"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager -->
+
+    <h1>用户信息展示页</h1>
+    <div id="display-area" style="padding: 20px; border: 1px solid #ccc; margin: 20px;">
+        <!-- 这里会动态显示参数 -->
+    </div>
+
+    <!-- 显示参数的脚本 -->
+    <script>
+        // 等待页面完全加载（包括GTM初始化）
+        window.onload = function() {
+            // 获取显示区域
+            const display = document.getElementById('display-area');
+            
+            // 从 dataLayer 中提取参数
+            try {
+                // 重要：确认 dataLayer 存在且数据已推送
+                if(window.dataLayer && window.dataLayer.length > 0) {
+                    const data = window.dataLayer[0];
+                    display.innerHTML = `
+                        用户名：${data.key1 || '未提供'} <br>
+                        邮箱：${data.key2 || '未提供'}
+                    `;
+                } else {
+                    display.innerHTML = "错误：未检测到数据";
+                }
+            } catch (error) {
+                display.innerHTML = "数据解析失败，请检查控制台";
+                console.error("错误详情:", error);
+            }
+        }
+    </script>
 </body>
 </html>
