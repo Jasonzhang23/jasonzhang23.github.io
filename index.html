@@ -44,32 +44,5 @@
             <strong>Key2 (邮箱):</strong> <span id="key2Value">-</span>
         </div>
     </div>
-
-    <script>
-        // 从 URL 获取参数的函数
-        function getUrlParameter(name) {
-            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-            var results = regex.exec(location.search);
-            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-        }
-
-        // 获取并显示参数
-        window.onload = function() {
-            var key1 = getUrlParameter('key1');
-            var key2 = getUrlParameter('key2');
-            
-            document.getElementById('key1Value').textContent = key1 || '-';
-            document.getElementById('key2Value').textContent = key2 || '-';
-
-            // 将参数推送到 dataLayer
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({
-                'key1': key1,
-                'key2': key2,
-                'event': 'parameterLoaded'
-            });
-        };
-    </script>
 </body>
 </html>
