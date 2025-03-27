@@ -1,51 +1,35 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>GTM参数测试页</title>
-    <!-- Google Tag Manager 的 head 代码（替换成你的GTM ID） -->
+    <title>GTM 参数展示专用页</title>
+    <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-NG6DB4XS');</script>
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NG6DB4XS');</script>
     <!-- End Google Tag Manager -->
 </head>
 <body>
-    <!-- Google Tag Manager 的 body 代码（替换成你的GTM ID） -->
+    <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NG6DB4XS"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager -->
+    <!-- End Google Tag Manager (noscript) -->
 
-    <h1>用户信息展示页</h1>
-    <div id="display-area" style="padding: 20px; border: 1px solid #ccc; margin: 20px;">
-        <!-- 这里会动态显示参数 -->
-    </div>
+    <!-- 参数展示区 -->
+    <h2>GTM 捕获参数：</h2>
+    <div id="key1">等待加载参数1...</div>
+    <div id="key2">等待加载参数2...</div>
 
-    <!-- 显示参数的脚本 -->
     <script>
-        // 等待页面完全加载（包括GTM初始化）
-        window.onload = function() {
-            // 获取显示区域
-            const display = document.getElementById('display-area');
-            
-            // 从 dataLayer 中提取参数
-            try {
-                // 重要：确认 dataLayer 存在且数据已推送
-                if(window.dataLayer && window.dataLayer.length > 0) {
-                    const data = window.dataLayer[0];
-                    display.innerHTML = `
-                        用户名：${data.key1 || '未提供'} <br>
-                        邮箱：${data.key2 || '未提供'}
-                    `;
-                } else {
-                    display.innerHTML = "错误：未检测到数据";
-                }
-            } catch (error) {
-                display.innerHTML = "数据解析失败，请检查控制台";
-                console.error("错误详情:", error);
+        // 将URL参数推送到数据层 (关键步骤)
+        window.dataLayer = window.dataLayer || [];
+        const urlParams = new URLSearchParams(location.search);
+        dataLayer.push({
+            'urlParams': {
+                'key1': urlParams.get('key1') || '未传递',
+                'key2': urlParams.get('key2') || '未传递'
             }
-        }
+        });
     </script>
 </body>
 </html>
